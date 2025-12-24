@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const CATEGORIES = [
     { id: "banking", label: "Banking", icon: "🏦" },
@@ -213,8 +213,8 @@ export default function CreateChallenge() {
                                         type="button"
                                         onClick={() => setForm(prev => ({ ...prev, category: cat.id }))}
                                         className={`p-3 rounded-lg text-sm transition ${form.category === cat.id
-                                                ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-400"
-                                                : "bg-slate-800 border border-slate-700 hover:bg-slate-700"
+                                            ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-400"
+                                            : "bg-slate-800 border border-slate-700 hover:bg-slate-700"
                                             }`}
                                     >
                                         <span className="mr-1">{cat.icon}</span>

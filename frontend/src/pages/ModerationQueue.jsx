@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function ModerationQueue() {
     const { user } = useAuth();
@@ -96,8 +96,8 @@ export default function ModerationQueue() {
                                 key={challenge._id}
                                 onClick={() => setActiveChallenge(challenge)}
                                 className={`glass-card p-4 cursor-pointer transition ${activeChallenge?._id === challenge._id
-                                        ? "ring-2 ring-emerald-500"
-                                        : "hover:border-slate-600"
+                                    ? "ring-2 ring-emerald-500"
+                                    : "hover:border-slate-600"
                                     }`}
                             >
                                 <div className="flex items-start justify-between">
@@ -109,8 +109,8 @@ export default function ModerationQueue() {
                                         </div>
                                     </div>
                                     <span className={`badge ${challenge.type === "phishing"
-                                            ? "badge-danger"
-                                            : "badge-success"
+                                        ? "badge-danger"
+                                        : "badge-success"
                                         }`}>
                                         {challenge.type}
                                     </span>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 export default function Home() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/me", {
+    fetch(`${API_BASE}/users/me`, {
       headers: { Authorization: `Bearer ${localStorage.token}` },
     })
       .then(res => res.json())

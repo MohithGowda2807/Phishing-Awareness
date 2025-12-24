@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const CATEGORIES = [
     { id: "all", label: "All", icon: "🌐" },
@@ -117,8 +117,8 @@ export default function CommunityHub() {
                 <button
                     onClick={() => setActiveTab("browse")}
                     className={`px-4 py-2 rounded-lg font-medium transition ${activeTab === "browse"
-                            ? "bg-emerald-500/20 text-emerald-400"
-                            : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                        ? "bg-emerald-500/20 text-emerald-400"
+                        : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                         }`}
                 >
                     Browse
@@ -126,8 +126,8 @@ export default function CommunityHub() {
                 <button
                     onClick={() => setActiveTab("my")}
                     className={`px-4 py-2 rounded-lg font-medium transition ${activeTab === "my"
-                            ? "bg-emerald-500/20 text-emerald-400"
-                            : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                        ? "bg-emerald-500/20 text-emerald-400"
+                        : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                         }`}
                 >
                     My Challenges
@@ -145,8 +145,8 @@ export default function CommunityHub() {
                                     key={cat.id}
                                     onClick={() => setCategory(cat.id)}
                                     className={`px-3 py-2 rounded-lg text-sm whitespace-nowrap transition ${category === cat.id
-                                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
-                                            : "bg-slate-800 text-slate-400 border border-transparent hover:bg-slate-700"
+                                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50"
+                                        : "bg-slate-800 text-slate-400 border border-transparent hover:bg-slate-700"
                                         }`}
                                 >
                                     <span className="mr-1">{cat.icon}</span>
@@ -227,9 +227,9 @@ export default function CommunityHub() {
                                     <div className="font-medium">{challenge.title}</div>
                                     <div className="flex items-center gap-3 text-sm text-slate-400">
                                         <span className={`badge ${challenge.status === "approved" ? "badge-success" :
-                                                challenge.status === "featured" ? "bg-purple-500/20 text-purple-400" :
-                                                    challenge.status === "rejected" ? "badge-danger" :
-                                                        "bg-yellow-500/20 text-yellow-400"
+                                            challenge.status === "featured" ? "bg-purple-500/20 text-purple-400" :
+                                                challenge.status === "rejected" ? "badge-danger" :
+                                                    "bg-yellow-500/20 text-yellow-400"
                                             }`}>
                                             {challenge.status}
                                         </span>
@@ -289,8 +289,8 @@ function ChallengeCard({ challenge, onVote, currentUserId }) {
                     <button
                         onClick={() => onVote(challenge._id, "up")}
                         className={`px-3 py-1 rounded-lg flex items-center gap-1 transition ${userVote === "up"
-                                ? "bg-emerald-500/20 text-emerald-400"
-                                : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                            ? "bg-emerald-500/20 text-emerald-400"
+                            : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                             }`}
                     >
                         👍 {challenge.upvotes || 0}
@@ -298,8 +298,8 @@ function ChallengeCard({ challenge, onVote, currentUserId }) {
                     <button
                         onClick={() => onVote(challenge._id, "down")}
                         className={`px-3 py-1 rounded-lg flex items-center gap-1 transition ${userVote === "down"
-                                ? "bg-red-500/20 text-red-400"
-                                : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                            ? "bg-red-500/20 text-red-400"
+                            : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                             }`}
                     >
                         👎 {challenge.downvotes || 0}

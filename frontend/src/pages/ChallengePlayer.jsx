@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function ChallengePlayer() {
     const { id } = useParams();
@@ -125,8 +125,8 @@ export default function ChallengePlayer() {
                             <button
                                 onClick={() => setShowTools(prev => ({ ...prev, sender: !prev.sender }))}
                                 className={`p-3 rounded-lg border transition ${showTools.sender
-                                        ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
-                                        : "bg-slate-800/50 border-slate-700/50"
+                                    ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
+                                    : "bg-slate-800/50 border-slate-700/50"
                                     }`}
                             >
                                 👤 Inspect Sender
@@ -134,8 +134,8 @@ export default function ChallengePlayer() {
                             <button
                                 onClick={() => setShowTools(prev => ({ ...prev, headers: !prev.headers }))}
                                 className={`p-3 rounded-lg border transition ${showTools.headers
-                                        ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
-                                        : "bg-slate-800/50 border-slate-700/50"
+                                    ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
+                                    : "bg-slate-800/50 border-slate-700/50"
                                     }`}
                             >
                                 📋 View Headers
@@ -163,8 +163,8 @@ export default function ChallengePlayer() {
                             <button
                                 onClick={() => setDecision("report")}
                                 className={`p-4 rounded-lg border transition ${decision === "report"
-                                        ? "bg-red-500/20 border-red-500 text-red-400"
-                                        : "bg-slate-800/50 border-slate-700/50 hover:border-red-500/50"
+                                    ? "bg-red-500/20 border-red-500 text-red-400"
+                                    : "bg-slate-800/50 border-slate-700/50 hover:border-red-500/50"
                                     }`}
                             >
                                 <span className="text-2xl block mb-1">🚨</span>
@@ -173,8 +173,8 @@ export default function ChallengePlayer() {
                             <button
                                 onClick={() => setDecision("safe")}
                                 className={`p-4 rounded-lg border transition ${decision === "safe"
-                                        ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
-                                        : "bg-slate-800/50 border-slate-700/50 hover:border-emerald-500/50"
+                                    ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
+                                    : "bg-slate-800/50 border-slate-700/50 hover:border-emerald-500/50"
                                     }`}
                             >
                                 <span className="text-2xl block mb-1">✅</span>
@@ -204,8 +204,8 @@ export default function ChallengePlayer() {
                     <div className="text-xl text-emerald-400 mb-4">+{result.xpGained} XP</div>
 
                     <div className={`p-4 rounded-lg mb-6 ${result.wasPhishing
-                            ? "bg-red-500/20 border border-red-500/50"
-                            : "bg-emerald-500/20 border border-emerald-500/50"
+                        ? "bg-red-500/20 border border-red-500/50"
+                        : "bg-emerald-500/20 border border-emerald-500/50"
                         }`}>
                         This was: {result.wasPhishing ? "🚨 PHISHING" : "✅ LEGITIMATE"}
                     </div>
