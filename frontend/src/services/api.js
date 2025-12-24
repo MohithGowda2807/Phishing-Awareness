@@ -1,25 +1,109 @@
 const API_BASE = "http://localhost:5000/api";
 
-export const registerUser = async (data) => {
+// Helper to get auth headers
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
+  };
+};
+
+// Helper for API calls with error handling
+const apiCall = async (endpoint, options = {}) => {
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      ...options,
+      headers: {
+        ...getAuthHeaders(),
+        ...options.headers,
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "API request failed");
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+// Auth
+export const registerUser = async (userData) => {
   const res = await fetch(`${API_BASE}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(userData),
   });
   return res.json();
 };
 
-export const loginUser = async (data) => {
+export const loginUser = async (credentials) => {
   const res = await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(credentials),
   });
   return res.json();
 };
 
-export async function getMissions() {
-  const res = await fetch("http://localhost:5000/api/missions");
+// User
+export const getCurrentUser = async () => {
+  const res = await fetch(`${API_BASE}/users/me`, {
+    headers: getAuthHeaders(),
+  });
   return res.json();
-}
+};
 
+export const getLeaderboard = async () => {
+  const res = await fetch(`${API_BASE}/users/leaderboard`);
+  return res.json();
+};
+
+// Missions
+export const getMissions = async () => {
+  const res = await fetch(`${API_BASE}/missions`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getMissionById = async (id) => {
+  const res = await fetch(`${API_BASE}/missions/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+// Submissions
+export const submitMission = async (submissionData) => {
+  const res = await fetch(`${API_BASE}/submit`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(submissionData),
+  });
+  return res.json();
+};
+
+// Admin
+export const createMission = async (missionData) => {
+  const res = await fetch(`${API_BASE}/missions`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(missionData),
+  });
+  return res.json();
+};
+
+// Auth helpers
+export const isAuthenticated = () => {
+  return !!localStorage.getItem("token");
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+};

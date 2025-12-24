@@ -52,20 +52,4 @@ router.get("/leaderboard", async (req, res) => {
 });
 
 
-/**
- * GET /api/users/leaderboard
- */
-router.get("/leaderboard", async (req, res) => {
-  try {
-    const users = await User.find()
-      .sort({ xp: -1 })
-      .limit(20)
-      .select("name xp level accuracy");
-
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
 module.exports = router;

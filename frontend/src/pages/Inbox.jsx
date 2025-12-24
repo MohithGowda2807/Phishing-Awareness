@@ -5,31 +5,38 @@ import MissionRow from "../components/MissionRow";
 
 export default function Inbox() {
   const [missions, setMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMissions().then(setMissions);
+    getMissions()
+      .then(setMissions)
+      .finally(() => setLoading(false));
   }, []);
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex">
-      {/* Sidebar (simple for now) */}
-      <aside className="w-60 border-r border-slate-800 p-4">
-        <h2 className="text-emerald-400 font-bold text-xl mb-6">
-          PhishInbox
-        </h2>
-        <div className="text-slate-400 text-sm">📥 Inbox</div>
-      </aside>
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">📥 Inbox</h1>
+        <span className="text-slate-400 text-sm">
+          {missions.length} mission{missions.length !== 1 ? "s" : ""} available
+        </span>
+      </div>
 
-      {/* Inbox */}
-      <main className="flex-1">
-        <div className="border-b border-slate-800 px-4 py-3 text-slate-300">
-          Missions
-        </div>
-
+      <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 overflow-hidden">
         {missions.length === 0 ? (
-          <div className="p-6 text-slate-500">
-            No missions available
+          <div className="p-8 text-center text-slate-500">
+            <div className="text-4xl mb-2">📭</div>
+            <p>No missions available</p>
+            <p className="text-sm mt-1">Check back later for new challenges!</p>
           </div>
         ) : (
           missions.map((m) => (
@@ -40,7 +47,7 @@ export default function Inbox() {
             />
           ))
         )}
-      </main>
+      </div>
     </div>
   );
 }
