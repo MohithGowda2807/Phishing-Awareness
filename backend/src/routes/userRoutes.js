@@ -245,4 +245,21 @@ router.get("/:id/history", authMiddleware, async (req, res) => {
   }
 });
 
+/**
+ * GET /api/users/:id/submissions
+ * Get list of mission IDs the user has completed (for inbox display)
+ */
+router.get("/:id/submissions", authMiddleware, async (req, res) => {
+  try {
+    const submissions = await Submission.find({ userId: req.params.id })
+      .select("missionId score createdAt")
+      .lean();
+
+    res.json(submissions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to load submissions" });
+  }
+});
+
 module.exports = router;
