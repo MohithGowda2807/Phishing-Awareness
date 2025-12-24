@@ -11,6 +11,10 @@ import Admin from "./pages/Admin";
 import MissionViewer from "./pages/MissionViewer";
 import PhishSpotter from "./pages/PhishSpotter";
 import WeeklyChallenges from "./pages/WeeklyChallenges";
+import CommunityHub from "./pages/CommunityHub";
+import CreateChallenge from "./pages/CreateChallenge";
+import ChallengePlayer from "./pages/ChallengePlayer";
+import ModerationQueue from "./pages/ModerationQueue";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,6 +40,10 @@ export default function App() {
               <Route path="/mission/:id" element={<MissionViewer />} />
               <Route path="/phish-spotter" element={<PhishSpotter />} />
               <Route path="/challenges" element={<WeeklyChallenges />} />
+              <Route path="/community" element={<CommunityHub />} />
+              <Route path="/create-challenge" element={<CreateChallenge />} />
+              <Route path="/challenge/:id" element={<ChallengePlayer />} />
+              <Route path="/moderation" element={<ModerationQueue />} />
             </Route>
           </Route>
 

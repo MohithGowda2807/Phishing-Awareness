@@ -10,6 +10,7 @@ export default function Layout() {
     { path: "/inbox", label: "Inbox", icon: "📥" },
     { path: "/phish-spotter", label: "Phish Spotter", icon: "⚡" },
     { path: "/challenges", label: "Challenges", icon: "🏅" },
+    { path: "/community", label: "Community", icon: "🌍" },
     { path: "/leaderboard", label: "Leaderboard", icon: "🏆" },
     { path: "/profile", label: "Profile", icon: "👤" },
   ];
@@ -96,6 +97,20 @@ export default function Layout() {
             >
               <span className="text-lg">⚙️</span>
               <span className="font-medium">Admin</span>
+            </Link>
+          )}
+
+          {/* Moderation Link */}
+          {(user?.role === "admin" || user?.role === "moderator") && (
+            <Link
+              to="/moderation"
+              className={`nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive("/moderation")
+                ? "bg-purple-500/10 text-purple-400 active"
+                : "text-slate-400 hover:text-white hover:bg-slate-700/50"
+                }`}
+            >
+              <span className="text-lg">🛡️</span>
+              <span className="font-medium">Moderation</span>
             </Link>
           )}
         </nav>

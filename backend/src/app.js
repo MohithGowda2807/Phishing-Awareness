@@ -25,5 +25,9 @@ const submissionRoutes = require("./routes/submission.routes");
 
 app.use("/api/submit", submissionRoutes);
 
+const challengeRoutes = require("./routes/challenge.routes");
+
+app.use("/api/challenges", challengeRoutes);
+
 
 module.exports = app;

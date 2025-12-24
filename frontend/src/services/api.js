@@ -99,6 +99,21 @@ export const createMission = async (missionData) => {
   return res.json();
 };
 
+// User Stats
+export const getUserStats = async (userId) => {
+  const res = await fetch(`${API_BASE}/users/${userId}/stats`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getUserHistory = async (userId, page = 1) => {
+  const res = await fetch(`${API_BASE}/users/${userId}/history?page=${page}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
 // Auth helpers
 export const isAuthenticated = () => {
   return !!localStorage.getItem("token");
