@@ -390,3 +390,212 @@ exports.createQuest = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+/**
+ * Admin: Seed initial regions and quests (one-time setup)
+ * This is additive - won't delete existing data
+ */
+exports.seedRegions = async (req, res) => {
+    try {
+        // Check if regions already exist
+        const existingCount = await Region.countDocuments();
+        if (existingCount > 0) {
+            return res.json({
+                message: `World Map already has ${existingCount} regions. Seed skipped.`,
+                alreadySeeded: true,
+                regionCount: existingCount
+            });
+        }
+
+        // Create regions
+        const regionsData = [
+            {
+                name: "Phishing Detection",
+                code: "PHISHING",
+                description: "Learn to identify and report phishing emails, messages, and websites.",
+                icon: "📧",
+                color: "emerald",
+                order: 1,
+                requiredLevel: 1,
+                story: {
+                    intro: "Welcome, Defender! The Cyber Syndicate has launched a massive phishing campaign. Your mission: learn to spot their deceptive emails.",
+                    completion: "Excellent work! You've mastered phishing detection."
+                },
+                status: "active"
+            },
+            {
+                name: "Password Security",
+                code: "PASSWORDS",
+                description: "Understand password strength, safe practices, and multi-factor authentication.",
+                icon: "🔒",
+                color: "blue",
+                order: 2,
+                requiredLevel: 2,
+                requiredStarsFromPrevious: 6,
+                story: {
+                    intro: "The Syndicate is attempting brute-force attacks. Time to learn about unbreakable passwords.",
+                    completion: "Your password knowledge is now fortress-level."
+                },
+                status: "active"
+            },
+            {
+                name: "Web & URL Safety",
+                code: "WEB_SAFETY",
+                description: "Detect malicious links, typosquatting, and dangerous websites.",
+                icon: "🔗",
+                color: "purple",
+                order: 3,
+                requiredLevel: 3,
+                requiredStarsFromPrevious: 6,
+                story: {
+                    intro: "The Syndicate has set up fake websites. Learn to spot the imposters!",
+                    completion: "You can now see through even the most convincing fake URLs."
+                },
+                status: "active"
+            },
+            {
+                name: "Malware Awareness",
+                code: "MALWARE",
+                description: "Recognize malware delivery methods, suspicious attachments, and ransomware.",
+                icon: "🦠",
+                color: "red",
+                order: 4,
+                requiredLevel: 4,
+                requiredStarsFromPrevious: 6,
+                story: {
+                    intro: "Intelligence suggests a ransomware attack is planned. Learn to identify malware!",
+                    completion: "You're now a malware detection expert."
+                },
+                status: "active"
+            },
+            {
+                name: "Social Engineering",
+                code: "SOCIAL_ENGINEERING",
+                description: "Defend against pretexting, vishing, and psychological manipulation.",
+                icon: "🎭",
+                color: "orange",
+                order: 5,
+                requiredLevel: 5,
+                requiredStarsFromPrevious: 6,
+                story: {
+                    intro: "The Syndicate's agents use psychology. Learn to resist manipulation!",
+                    completion: "No social engineering can fool you now."
+                },
+                status: "active"
+            },
+            {
+                name: "Final Challenge",
+                code: "BOSS_CHALLENGE",
+                description: "Face a multi-vector attack combining all your skills.",
+                icon: "🚨",
+                color: "yellow",
+                order: 6,
+                requiredLevel: 6,
+                requiredStarsFromPrevious: 9,
+                story: {
+                    intro: "This is it! The Syndicate's ultimate attack combining everything. Stop them!",
+                    completion: "🏆 CONGRATULATIONS! You've defeated the Cyber Syndicate!"
+                },
+                status: "active"
+            }
+        ];
+
+        const regions = await Region.insertMany(regionsData);
+
+        // Create quests for Phishing region
+        const phishingRegion = regions.find(r => r.code === "PHISHING");
+
+        const questsData = [
+            {
+                region: phishingRegion._id,
+                title: "Spot the Fake Sender",
+                description: "Learn to identify spoofed email addresses.",
+                order: 1,
+                questType: "tutorial",
+                difficulty: 1,
+                xpReward: 50,
+                bonusXP: 15,
+                requiredStars: 0,
+                icon: "👤",
+                story: { intro: "Phishing emails often impersonate trusted senders. Let's learn to spot the fakes." },
+                status: "active"
+            },
+            {
+                region: phishingRegion._id,
+                title: "Link Inspection 101",
+                description: "Master the art of hovering before clicking.",
+                order: 2,
+                questType: "mission",
+                difficulty: 2,
+                xpReward: 60,
+                bonusXP: 20,
+                requiredStars: 2,
+                icon: "🔗",
+                story: { intro: "Never click a link without checking where it really goes!" },
+                status: "active"
+            },
+            {
+                region: phishingRegion._id,
+                title: "Urgency Red Flags",
+                description: "Recognize high-pressure tactics.",
+                order: 3,
+                questType: "question",
+                difficulty: 2,
+                xpReward: 70,
+                bonusXP: 20,
+                requiredStars: 4,
+                icon: "⏰",
+                story: { intro: "Attackers love to create panic. Stay calm!" },
+                status: "active"
+            },
+            {
+                region: phishingRegion._id,
+                title: "CEO Impersonation",
+                description: "Defend against BEC attacks.",
+                order: 4,
+                questType: "mission",
+                difficulty: 3,
+                xpReward: 80,
+                bonusXP: 25,
+                requiredStars: 6,
+                icon: "👔",
+                story: { intro: "The Syndicate is impersonating executives. Can you spot them?" },
+                status: "active"
+            },
+            {
+                region: phishingRegion._id,
+                title: "Phishing Boss: BEC Attack",
+                description: "Face a multi-stage Business Email Compromise.",
+                order: 5,
+                questType: "boss",
+                difficulty: 4,
+                xpReward: 150,
+                bonusXP: 50,
+                requiredStars: 9,
+                starThresholds: { one: 60, two: 80, three: 95 },
+                icon: "🏆",
+                isBoss: true,
+                story: { intro: "The ultimate phishing test. A sophisticated BEC attack unfolds!" },
+                status: "active"
+            }
+        ];
+
+        const quests = await Quest.insertMany(questsData);
+
+        // Update region stats
+        phishingRegion.totalQuests = quests.length;
+        phishingRegion.maxStars = quests.length * 3;
+        phishingRegion.totalXP = quests.reduce((sum, q) => sum + q.xpReward, 0);
+        await phishingRegion.save();
+
+        res.json({
+            success: true,
+            message: "World Map seeded successfully!",
+            regionsCreated: regions.length,
+            questsCreated: quests.length
+        });
+    } catch (error) {
+        console.error("Seed regions error:", error);
+        res.status(500).json({ error: error.message });
+    }
+};

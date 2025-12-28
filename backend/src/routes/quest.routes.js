@@ -7,7 +7,8 @@ const {
     completeQuest,
     getUserProgress,
     createRegion,
-    createQuest
+    createQuest,
+    seedRegions
 } = require("../controllers/quest.controller");
 const { authenticate, requireAdmin } = require("../middleware/authMiddleware");
 
@@ -23,5 +24,6 @@ router.post("/quests/:id/complete", authenticate, completeQuest);
 // Admin routes
 router.post("/regions", authenticate, requireAdmin, createRegion);
 router.post("/quests", authenticate, requireAdmin, createQuest);
+router.post("/seed", authenticate, requireAdmin, seedRegions);
 
 module.exports = router;
