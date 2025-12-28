@@ -19,6 +19,7 @@ import ModerationQueue from "./pages/ModerationQueue";
 import QuestionPlayer from "./pages/QuestionPlayer";
 import WorldMap from "./pages/WorldMap";
 import RegionView from "./pages/RegionView";
+import QuestPlayer from "./pages/QuestPlayer";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -41,6 +42,7 @@ export default function App() {
                 <Route path="/inbox" element={<Inbox />} />
                 <Route path="/world-map" element={<WorldMap />} />
                 <Route path="/region/:id" element={<RegionView />} />
+                <Route path="/quest/:id" element={<QuestPlayer />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Admin />} />
