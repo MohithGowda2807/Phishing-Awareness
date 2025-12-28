@@ -123,3 +123,49 @@ export const isAuthenticated = () => {
 export const logout = () => {
   localStorage.removeItem("token");
 };
+
+// Questions
+export const getQuestions = async (filters = {}) => {
+  const params = new URLSearchParams(filters).toString();
+  const url = params ? `${API_BASE}/questions?${params}` : `${API_BASE}/questions`;
+  const res = await fetch(url, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getQuestionById = async (id) => {
+  const res = await fetch(`${API_BASE}/questions/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const submitQuestionAnswer = async (questionId, selectedAnswers, userId) => {
+  const res = await fetch(`${API_BASE}/questions/${questionId}/submit`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({
+      selectedAnswers,
+      userId
+    }),
+  });
+  return res.json();
+};
+
+export const createQuestion = async (questionData) => {
+  const res = await fetch(`${API_BASE}/questions`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(questionData),
+  });
+  return res.json();
+};
+
+export const getQuestionStats = async () => {
+  const res = await fetch(`${API_BASE}/questions/stats`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+

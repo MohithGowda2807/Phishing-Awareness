@@ -16,6 +16,7 @@ import CommunityHub from "./pages/CommunityHub";
 import CreateChallenge from "./pages/CreateChallenge";
 import ChallengePlayer from "./pages/ChallengePlayer";
 import ModerationQueue from "./pages/ModerationQueue";
+import QuestionPlayer from "./pages/QuestionPlayer";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -40,6 +41,7 @@ export default function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/mission/:id" element={<MissionViewer />} />
+                <Route path="/question/:id" element={<QuestionPlayer />} />
                 <Route path="/phish-spotter" element={<PhishSpotter />} />
                 <Route path="/challenges" element={<WeeklyChallenges />} />
                 <Route path="/community" element={<CommunityHub />} />

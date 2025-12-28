@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -18,4 +19,21 @@ function authMiddleware(req, res, next) {
   }
 }
 
+// Admin authorization middleware
+async function requireAdmin(req, res, next) {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({ message: "Admin access required" });
+    }
+    next();
+  } catch (err) {
+    return res.status(500).json({ message: "Authorization error" });
+  }
+}
+
+// Export both as named exports and the main middleware as default
 module.exports = authMiddleware;
+module.exports.authenticate = authMiddleware;
+module.exports.requireAdmin = requireAdmin;
+

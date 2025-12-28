@@ -35,6 +35,9 @@ app.use("/api/submit", submissionRoutes);
 const challengeRoutes = require("./routes/challenge.routes");
 app.use("/api/challenges", challengeRoutes);
 
+const questionRoutes = require("./routes/question.routes");
+app.use("/api/questions", questionRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
