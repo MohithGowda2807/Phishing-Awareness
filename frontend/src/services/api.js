@@ -169,3 +169,40 @@ export const getQuestionStats = async () => {
   return res.json();
 };
 
+// World Map - Regions and Quests
+export const getRegions = async () => {
+  const res = await fetch(`${API_BASE}/world-map/regions`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getRegionById = async (id) => {
+  const res = await fetch(`${API_BASE}/world-map/regions/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getQuestById = async (id) => {
+  const res = await fetch(`${API_BASE}/world-map/quests/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const completeQuest = async (questId, score) => {
+  const res = await fetch(`${API_BASE}/world-map/quests/${questId}/complete`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ score }),
+  });
+  return res.json();
+};
+
+export const getUserProgress = async () => {
+  const res = await fetch(`${API_BASE}/world-map/progress`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};

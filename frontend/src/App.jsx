@@ -17,6 +17,8 @@ import CreateChallenge from "./pages/CreateChallenge";
 import ChallengePlayer from "./pages/ChallengePlayer";
 import ModerationQueue from "./pages/ModerationQueue";
 import QuestionPlayer from "./pages/QuestionPlayer";
+import WorldMap from "./pages/WorldMap";
+import RegionView from "./pages/RegionView";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -37,6 +39,8 @@ export default function App() {
                 <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/inbox" element={<Inbox />} />
+                <Route path="/world-map" element={<WorldMap />} />
+                <Route path="/region/:id" element={<RegionView />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Admin />} />

@@ -38,6 +38,9 @@ app.use("/api/challenges", challengeRoutes);
 const questionRoutes = require("./routes/question.routes");
 app.use("/api/questions", questionRoutes);
 
+const questRoutes = require("./routes/quest.routes");
+app.use("/api/world-map", questRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

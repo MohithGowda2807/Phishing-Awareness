@@ -12,6 +12,7 @@ export default function Layout() {
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: "🏠" },
     { path: "/inbox", label: "Inbox", icon: "📥" },
+    { path: "/world-map", label: "World Map", icon: "🗺️" },
     { path: "/phish-spotter", label: "Phish Spotter", icon: "⚡" },
     { path: "/challenges", label: "Challenges", icon: "🏅" },
     { path: "/community", label: "Community", icon: "🌍" },
@@ -132,8 +133,8 @@ export default function Layout() {
               to={item.path}
               onClick={closeSidebar}
               className={`nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive(item.path)
-                  ? "bg-primary/10 text-primary active"
-                  : "text-secondary hover:text-base hover:bg-hover"
+                ? "bg-primary/10 text-primary active"
+                : "text-secondary hover:text-base hover:bg-hover"
                 }`}
             >
               <span className="text-lg">{item.icon}</span>
@@ -147,8 +148,8 @@ export default function Layout() {
               to="/admin"
               onClick={closeSidebar}
               className={`nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive("/admin")
-                  ? "bg-purple-500/10 text-purple-400 active"
-                  : "text-secondary hover:text-base hover:bg-hover"
+                ? "bg-purple-500/10 text-purple-400 active"
+                : "text-secondary hover:text-base hover:bg-hover"
                 }`}
             >
               <span className="text-lg">⚙️</span>
@@ -162,8 +163,8 @@ export default function Layout() {
               to="/moderation"
               onClick={closeSidebar}
               className={`nav-link flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive("/moderation")
-                  ? "bg-purple-500/10 text-purple-400 active"
-                  : "text-secondary hover:text-base hover:bg-hover"
+                ? "bg-purple-500/10 text-purple-400 active"
+                : "text-secondary hover:text-base hover:bg-hover"
                 }`}
             >
               <span className="text-lg">🛡️</span>
