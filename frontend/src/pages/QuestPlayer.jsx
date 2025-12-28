@@ -85,14 +85,38 @@ export default function QuestPlayer() {
                     ],
                     explanation: "Urgency is a classic phishing tactic. Real companies don't threaten account suspension with extreme deadlines. Always go directly to the official website instead of clicking email links."
                 };
+            case "CEO Impersonation":
+                return {
+                    question: "You receive this email: 'Hi, I'm currently in a meeting and need you to urgently purchase $500 in gift cards for client appreciation. Keep this confidential. - Sent from CEO's iPhone'. What do you do?",
+                    options: [
+                        { id: 1, text: "Purchase the gift cards immediately to help the CEO", correct: false },
+                        { id: 2, text: "Reply to ask which type of gift cards", correct: false },
+                        { id: 3, text: "Verify through a separate channel (call/Slack the CEO directly)", correct: true },
+                        { id: 4, text: "Forward to your manager to handle", correct: false },
+                    ],
+                    explanation: "This is a classic Business Email Compromise (BEC) attack. The urgency, request for confidentiality, and unusual payment method (gift cards) are red flags. ALWAYS verify such requests through a known, separate communication channel - never trust email alone for financial requests."
+                };
+            case "Phishing Boss: BEC Attack":
+                return {
+                    question: "SCENARIO: You've received 3 emails today: 1) IT asking to verify your credentials via a link, 2) HR announcing a 'mandatory policy update' requiring your SSN, 3) A vendor invoice with an attachment named 'invoice.pdf.exe'. How many of these are DEFINITELY suspicious?",
+                    options: [
+                        { id: 1, text: "Just 1 - only the .exe file is dangerous", correct: false },
+                        { id: 2, text: "Just 2 - IT and the attachment", correct: false },
+                        { id: 3, text: "All 3 are suspicious and should be verified", correct: true },
+                        { id: 4, text: "None - these are normal business emails", correct: false },
+                    ],
+                    explanation: "ALL THREE are suspicious! 1) IT departments don't ask for credentials via email links, 2) HR wouldn't request SSN via email - this is a data harvesting attempt, 3) The .exe hidden in a PDF name is an obvious malware attempt. When in doubt, verify ALL unusual requests through known channels."
+                };
             default:
                 return {
-                    question: "This is a tutorial quest. Complete it to earn stars!",
+                    question: "Test your phishing awareness! Select the best security practice:",
                     options: [
-                        { id: 1, text: "I understand the basics", correct: true },
-                        { id: 2, text: "I need more practice", correct: false },
+                        { id: 1, text: "Always verify unexpected requests through a separate channel", correct: true },
+                        { id: 2, text: "Trust emails from people you know", correct: false },
+                        { id: 3, text: "Click links to check if they're safe", correct: false },
+                        { id: 4, text: "Respond quickly to urgent requests", correct: false },
                     ],
-                    explanation: "Great! You're ready to continue your training."
+                    explanation: "The safest approach is always to verify unexpected or unusual requests through a known, separate communication channel. Email accounts can be compromised, so never trust email alone for sensitive matters."
                 };
         }
     };
@@ -257,8 +281,8 @@ export default function QuestPlayer() {
                             key={option.id}
                             onClick={() => setSelectedAnswer(option.id)}
                             className={`w-full p-4 text-left rounded-lg border-2 transition ${selectedAnswer === option.id
-                                    ? "border-emerald-500 bg-emerald-500/10"
-                                    : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
+                                ? "border-emerald-500 bg-emerald-500/10"
+                                : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
                                 }`}
                         >
                             {option.text}

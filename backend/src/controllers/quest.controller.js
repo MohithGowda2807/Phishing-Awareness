@@ -28,32 +28,21 @@ exports.getRegions = async (req, res) => {
                 rp => rp.regionId?.toString() === region._id.toString()
             );
 
-            // First region is always unlocked, others depend on prerequisites
+            // First region is always unlocked
             let isUnlocked = index === 0;
 
-            if (!isUnlocked && userProgress) {
-                // Check if user meets level requirement
-                const user = req.user;
-                if (user?.level >= region.requiredLevel) {
-                    // Check if prerequisite regions are completed
-                    if (region.prerequisiteRegions?.length === 0) {
-                        // Check previous region by order
-                        const prevRegion = regions[index - 1];
-                        if (prevRegion) {
-                            const prevProgress = userProgress.regionProgress?.find(
-                                rp => rp.regionId?.toString() === prevRegion._id.toString()
-                            );
-                            isUnlocked = prevProgress?.isCompleted ||
-                                (prevProgress?.totalStars >= region.requiredStarsFromPrevious);
-                        }
-                    } else {
-                        // Check specific prerequisites
-                        isUnlocked = region.prerequisiteRegions.every(prereqId => {
-                            const prereqProgress = userProgress.regionProgress?.find(
-                                rp => rp.regionId?.toString() === prereqId.toString()
-                            );
-                            return prereqProgress?.isCompleted;
-                        });
+            if (!isUnlocked) {
+                // Check previous region completion
+                const prevRegion = regions[index - 1];
+                if (prevRegion && userProgress) {
+                    const prevProgress = userProgress.regionProgress?.find(
+                        rp => rp.regionId?.toString() === prevRegion._id.toString()
+                    );
+
+                    // Unlock if previous region is completed OR has enough stars
+                    if (prevProgress) {
+                        const hasEnoughStars = prevProgress.totalStars >= (region.requiredStarsFromPrevious || 0);
+                        isUnlocked = prevProgress.isCompleted || hasEnoughStars;
                     }
                 }
             }
