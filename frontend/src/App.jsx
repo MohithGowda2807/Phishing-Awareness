@@ -20,6 +20,10 @@ import QuestionPlayer from "./pages/QuestionPlayer";
 import WorldMap from "./pages/WorldMap";
 import RegionView from "./pages/RegionView";
 import QuestPlayer from "./pages/QuestPlayer";
+import TrainingHub from "./pages/TrainingHub";
+import SMSPhishing from "./pages/SMSPhishing";
+import FakeWebsiteDetector from "./pages/FakeWebsiteDetector";
+import PasswordStrengthBattle from "./pages/PasswordStrengthBattle";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -54,6 +58,10 @@ export default function App() {
                 <Route path="/create-challenge" element={<CreateChallenge />} />
                 <Route path="/challenge/:id" element={<ChallengePlayer />} />
                 <Route path="/moderation" element={<ModerationQueue />} />
+                <Route path="/training" element={<TrainingHub />} />
+                <Route path="/training/sms-phishing" element={<SMSPhishing />} />
+                <Route path="/training/fake-website" element={<FakeWebsiteDetector />} />
+                <Route path="/training/password-battle" element={<PasswordStrengthBattle />} />
               </Route>
             </Route>
 
