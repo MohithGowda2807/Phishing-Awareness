@@ -28,6 +28,9 @@ import SpamEmailBattle from "./pages/SpamEmailBattle";
 import URLDefuse from "./pages/URLDefuse";
 import QRCodeScanner from "./pages/QRCodeScanner";
 import AttachmentQuarantine from "./pages/AttachmentQuarantine";
+import SocialEngineeringHotline from "./pages/SocialEngineeringHotline";
+import WiFiSafetyTrainer from "./pages/WiFiSafetyTrainer";
+import CryptoScamDetector from "./pages/CryptoScamDetector";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -70,6 +73,9 @@ export default function App() {
                 <Route path="/training/url-defuse" element={<URLDefuse />} />
                 <Route path="/training/qr-scanner" element={<QRCodeScanner />} />
                 <Route path="/training/attachment-quarantine" element={<AttachmentQuarantine />} />
+                <Route path="/training/vishing-defense" element={<SocialEngineeringHotline />} />
+                <Route path="/training/wifi-safety" element={<WiFiSafetyTrainer />} />
+                <Route path="/training/crypto-scams" element={<CryptoScamDetector />} />
               </Route>
             </Route>
 
