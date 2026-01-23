@@ -163,7 +163,7 @@ export default function CreateChallenge() {
                         <h2 className="text-lg font-semibold mb-4">Step 1: Basic Information</h2>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-1">Challenge Title</label>
+                            <label className="block text-sm text-secondary mb-1">Challenge Title</label>
                             <input
                                 name="title"
                                 value={form.title}
@@ -176,7 +176,7 @@ export default function CreateChallenge() {
 
                         <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-1">Type</label>
+                                <label className="block text-sm text-secondary mb-1">Type</label>
                                 <select
                                     name="type"
                                     value={form.type}
@@ -188,7 +188,7 @@ export default function CreateChallenge() {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-1">Difficulty</label>
+                                <label className="block text-sm text-secondary mb-1">Difficulty</label>
                                 <select
                                     name="difficulty"
                                     value={form.difficulty}
@@ -205,7 +205,7 @@ export default function CreateChallenge() {
                         </div>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-2">Category</label>
+                            <label className="block text-sm text-secondary mb-2">Category</label>
                             <div className="grid grid-cols-3 gap-2">
                                 {CATEGORIES.map((cat) => (
                                     <button
@@ -214,7 +214,7 @@ export default function CreateChallenge() {
                                         onClick={() => setForm(prev => ({ ...prev, category: cat.id }))}
                                         className={`p-3 rounded-lg text-sm transition ${form.category === cat.id
                                             ? "bg-emerald-500/20 border border-emerald-500/50 text-emerald-400"
-                                            : "bg-slate-800 border border-slate-700 hover:bg-slate-700"
+                                            : "bg-surface border border-border hover:bg-hover"
                                             }`}
                                     >
                                         <span className="mr-1">{cat.icon}</span>
@@ -244,7 +244,7 @@ export default function CreateChallenge() {
 
                         <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-1">Sender Name</label>
+                                <label className="block text-sm text-secondary mb-1">Sender Name</label>
                                 <input
                                     name="fromName"
                                     value={form.fromName}
@@ -255,7 +255,7 @@ export default function CreateChallenge() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-1">Sender Email</label>
+                                <label className="block text-sm text-secondary mb-1">Sender Email</label>
                                 <input
                                     name="fromEmail"
                                     value={form.fromEmail}
@@ -268,7 +268,7 @@ export default function CreateChallenge() {
                         </div>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-1">Subject Line</label>
+                            <label className="block text-sm text-secondary mb-1">Subject Line</label>
                             <input
                                 name="subject"
                                 value={form.subject}
@@ -280,7 +280,7 @@ export default function CreateChallenge() {
                         </div>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-1">Email Body</label>
+                            <label className="block text-sm text-secondary mb-1">Email Body</label>
                             <textarea
                                 name="body"
                                 value={form.body}
@@ -292,11 +292,11 @@ export default function CreateChallenge() {
                         </div>
 
                         {/* Headers */}
-                        <div className="p-4 bg-slate-800/50 rounded-lg">
+                        <div className="p-4 bg-hover rounded-lg">
                             <h4 className="text-sm font-medium mb-3">Email Headers (for investigation tools)</h4>
                             <div className="grid grid-cols-3 gap-4">
                                 <div>
-                                    <label className="block text-xs text-slate-500 mb-1">SPF</label>
+                                    <label className="block text-xs text-muted mb-1">SPF</label>
                                     <select name="spf" value={form.spf} onChange={handleChange} className="input text-sm py-2">
                                         <option value="pass">Pass ✓</option>
                                         <option value="fail">Fail ✗</option>
@@ -304,7 +304,7 @@ export default function CreateChallenge() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-slate-500 mb-1">DKIM</label>
+                                    <label className="block text-xs text-muted mb-1">DKIM</label>
                                     <select name="dkim" value={form.dkim} onChange={handleChange} className="input text-sm py-2">
                                         <option value="pass">Pass ✓</option>
                                         <option value="fail">Fail ✗</option>
@@ -312,7 +312,7 @@ export default function CreateChallenge() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-slate-500 mb-1">DMARC</label>
+                                    <label className="block text-xs text-muted mb-1">DMARC</label>
                                     <select name="dmarc" value={form.dmarc} onChange={handleChange} className="input text-sm py-2">
                                         <option value="pass">Pass ✓</option>
                                         <option value="fail">Fail ✗</option>
@@ -344,7 +344,7 @@ export default function CreateChallenge() {
                         <h2 className="text-lg font-semibold mb-4">Step 3: Clues & Explanation</h2>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-1">
+                            <label className="block text-sm text-secondary mb-1">
                                 Clues (comma-separated, min 2)
                             </label>
                             <input
@@ -355,13 +355,13 @@ export default function CreateChallenge() {
                                 className="input"
                                 required
                             />
-                            <p className="text-xs text-slate-500 mt-1">
+                            <p className="text-xs text-muted mt-1">
                                 What indicators should users look for?
                             </p>
                         </div>
 
                         <div>
-                            <label className="block text-sm text-slate-400 mb-1">
+                            <label className="block text-sm text-secondary mb-1">
                                 Explanation (shown after challenge)
                             </label>
                             <textarea
@@ -374,7 +374,7 @@ export default function CreateChallenge() {
                         </div>
 
                         {/* Preview */}
-                        <div className="p-4 bg-slate-800/50 rounded-lg">
+                        <div className="p-4 bg-hover rounded-lg">
                             <h4 className="text-sm font-medium mb-3">Preview</h4>
                             <div className="text-sm space-y-2">
                                 <div><strong>Title:</strong> {form.title}</div>
@@ -415,7 +415,7 @@ export default function CreateChallenge() {
             </form>
 
             {/* Info */}
-            <div className="mt-6 p-4 bg-slate-800/50 rounded-lg text-sm text-slate-400">
+            <div className="mt-6 p-4 bg-hover rounded-lg text-sm text-secondary">
                 <strong>Note:</strong> Your challenge will be reviewed by moderators before it appears
                 in the community hub. Make sure it's educational and follows community guidelines.
             </div>
