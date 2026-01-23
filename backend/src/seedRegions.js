@@ -15,13 +15,10 @@ const seedRegions = async () => {
         await connectDB();
         console.log("🌍 Seeding World Map data (additive only)...\n");
 
-        // Check if regions already exist
-        const existingCount = await Region.countDocuments();
-        if (existingCount > 0) {
-            console.log(`⚠️  Found ${existingCount} existing regions. Skipping seed to preserve data.`);
-            console.log("   To reseed, manually delete regions first.");
-            process.exit(0);
-        }
+        // Delete existing regions and quests to re-seed fresh
+        await Region.deleteMany({});
+        await Quest.deleteMany({});
+        console.log("✅ Cleared existing regions and quests\n");
 
         // Create regions
         const regions = await Region.insertMany([
