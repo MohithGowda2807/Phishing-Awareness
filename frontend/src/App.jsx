@@ -26,6 +26,8 @@ import FakeWebsiteDetector from "./pages/FakeWebsiteDetector";
 import PasswordStrengthBattle from "./pages/PasswordStrengthBattle";
 import SpamEmailBattle from "./pages/SpamEmailBattle";
 import URLDefuse from "./pages/URLDefuse";
+import QRCodeScanner from "./pages/QRCodeScanner";
+import AttachmentQuarantine from "./pages/AttachmentQuarantine";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -66,6 +68,8 @@ export default function App() {
                 <Route path="/training/password-battle" element={<PasswordStrengthBattle />} />
                 <Route path="/training/spam-battle" element={<SpamEmailBattle />} />
                 <Route path="/training/url-defuse" element={<URLDefuse />} />
+                <Route path="/training/qr-scanner" element={<QRCodeScanner />} />
+                <Route path="/training/attachment-quarantine" element={<AttachmentQuarantine />} />
               </Route>
             </Route>
 

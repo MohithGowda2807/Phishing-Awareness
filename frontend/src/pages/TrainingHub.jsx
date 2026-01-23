@@ -55,6 +55,28 @@ const TRAINING_MODULES = [
         path: "/training/url-defuse",
         color: "from-yellow-500 to-red-500",
         features: ["Wire cutting mechanics", "Timer countdown", "URL analysis"]
+    },
+    {
+        id: "qr-scanner",
+        title: "QR Code Scanner",
+        description: "Learn to identify malicious QR codes before scanning",
+        icon: "📷",
+        difficulty: "Medium",
+        time: "10 min",
+        path: "/training/qr-scanner",
+        color: "from-indigo-500 to-purple-500",
+        features: ["QR analysis", "URL preview", "Red flag detection"]
+    },
+    {
+        id: "attachment-quarantine",
+        title: "Attachment Quarantine",
+        description: "Airport security for files - scan and quarantine threats",
+        icon: "🦠",
+        difficulty: "Hard",
+        time: "10 min",
+        path: "/training/attachment-quarantine",
+        color: "from-pink-500 to-red-500",
+        features: ["X-ray scanner", "Extension checker", "Lives system"]
     }
 ];
 
@@ -124,36 +146,18 @@ export default function TrainingHub() {
                     ))}
                 </div>
 
-                {/* Coming Soon */}
-                <div className="glass-card p-8 text-center bg-gradient-to-br from-blue-500/5 to-purple-500/5">
-                    <h2 className="text-2xl font-bold mb-4">🚀 More Modules Coming Soon</h2>
-                    <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                        {[
-                            { icon: "🦠", name: "Attachment Quarantine", status: "Phase 3" },
-                            { icon: "📱", name: "QR Code Scanner", status: "Phase 3" },
-                            { icon: "📞", name: "Vishing Detector", status: "Phase 3" }
-                        ].map((module, i) => (
-                            <div key={i} className="bg-surface p-4 rounded-lg opacity-60">
-                                <div className="text-3xl mb-2">{module.icon}</div>
-                                <div className="text-sm font-semibold mb-1">{module.name}</div>
-                                <div className="text-xs text-muted">{module.status}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
                 {/* Stats Section */}
                 <div className="mt-12 grid md:grid-cols-3 gap-6">
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-primary mb-2">5</div>
+                        <div className="text-4xl font-bold text-primary mb-2">7</div>
                         <div className="text-sm text-secondary">Training Modules</div>
                     </div>
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-emerald-400 mb-2">50+</div>
+                        <div className="text-4xl font-bold text-emerald-400 mb-2">70+</div>
                         <div className="text-sm text-secondary">Interactive Scenarios</div>
                     </div>
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-cyan-400 mb-2">45</div>
+                        <div className="text-4xl font-bold text-cyan-400 mb-2">60</div>
                         <div className="text-sm text-secondary">Min Total Training</div>
                     </div>
                 </div>
