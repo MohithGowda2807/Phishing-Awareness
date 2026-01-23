@@ -3,13 +3,9 @@ import { createMission } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-
 export default function Admin() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [seedLoading, setSeedLoading] = useState(false);
-  const [seedMessage, setSeedMessage] = useState(null);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [form, setForm] = useState({
     title: "",
@@ -30,32 +26,6 @@ export default function Admin() {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const seedWorldMap = async () => {
-    setSeedLoading(true);
-    setSeedMessage(null);
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_BASE}/world-map/seed`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSeedMessage({ type: "success", text: `✅ ${data.message} (${data.regionsCreated} regions, ${data.questsCreated} quests)` });
-      } else if (data.alreadySeeded) {
-        setSeedMessage({ type: "info", text: `ℹ️ ${data.message}` });
-      } else {
-        setSeedMessage({ type: "error", text: data.error || "Seed failed" });
-      }
-    } catch (err) {
-      setSeedMessage({ type: "error", text: "Connection failed. Is the backend running?" });
-    }
-    setSeedLoading(false);
   };
 
   const submit = async (e) => {
@@ -118,41 +88,6 @@ export default function Admin() {
           <p className="text-slate-400 text-sm mt-1">Create and manage phishing missions</p>
         </div>
         <span className="badge bg-purple-500/20 text-purple-400">Admin</span>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="glass-card p-6 mb-6">
-        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <span>🗺️</span> World Map Setup
-        </h2>
-        <p className="text-slate-400 text-sm mb-4">
-          Seed the World Map with initial regions and quests. This only needs to be done once.
-        </p>
-        <button
-          onClick={seedWorldMap}
-          disabled={seedLoading}
-          className="btn-primary flex items-center gap-2"
-        >
-          {seedLoading ? (
-            <>
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              Seeding...
-            </>
-          ) : (
-            <>🌱 Seed World Map</>
-          )}
-        </button>
-        {seedMessage && (
-          <div className={`mt-4 px-4 py-3 rounded-lg text-sm ${
-            seedMessage.type === "success" 
-              ? "bg-emerald-500/10 border border-emerald-500/50 text-emerald-400"
-              : seedMessage.type === "info"
-                ? "bg-blue-500/10 border border-blue-500/50 text-blue-400"
-                : "bg-red-500/10 border border-red-500/50 text-red-400"
-          }`}>
-            {seedMessage.text}
-          </div>
-        )}
       </div>
 
       {/* Mission Builder */}
