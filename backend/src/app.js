@@ -41,6 +41,12 @@ app.use("/api/questions", questionRoutes);
 const questRoutes = require("./routes/quest.routes");
 app.use("/api/world-map", questRoutes);
 
+const achievementRoutes = require("./routes/achievement.routes");
+app.use("/api/achievements", achievementRoutes);
+
+const dailyRoutes = require("./routes/daily.routes");
+app.use("/api/daily", dailyRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

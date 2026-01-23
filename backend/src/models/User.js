@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema(
       default: []
     },
 
+    // Achievement Stats
+    perfectScores: { type: Number, default: 0 },
+    totalStars: { type: Number, default: 0 },
+    questsCompleted: { type: Number, default: 0 },
+
     // Behavioral Profiling
     behaviorProfile: {
       // Decision style classification

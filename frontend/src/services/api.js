@@ -206,3 +206,66 @@ export const getUserProgress = async () => {
   });
   return res.json();
 };
+
+// Achievements
+export const getAllAchievements = async () => {
+  const res = await fetch(`${API_BASE}/achievements`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getUserAchievements = async (userId) => {
+  const endpoint = userId ? `/achievements/user/${userId}` : '/achievements/user';
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const toggleAchievementShowcase = async (achievementId) => {
+  const res = await fetch(`${API_BASE}/achievements/${achievementId}/showcase`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getRecentAchievements = async () => {
+  const res = await fetch(`${API_BASE}/achievements/recent`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const markAchievementViewed = async (achievementId) => {
+  const res = await fetch(`${API_BASE}/achievements/${achievementId}/viewed`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+// Daily Challenges
+export const getTodayChallenge = async () => {
+  const res = await fetch(`${API_BASE}/daily/today`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const completeDailyChallenge = async (score, timeSpent) => {
+  const res = await fetch(`${API_BASE}/daily/complete`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ score, timeSpent }),
+  });
+  return res.json();
+};
+
+export const getDailyHistory = async () => {
+  const res = await fetch(`${API_BASE}/daily/history`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
