@@ -33,6 +33,28 @@ const TRAINING_MODULES = [
         path: "/training/password-battle",
         color: "from-emerald-500 to-teal-500",
         features: ["Live crack simulation", "Strength meter", "MFA education"]
+    },
+    {
+        id: "spam-battle",
+        title: "Spam Email Battle",
+        description: "Defend your inbox! Drag emails to spam or inbox",
+        icon: "📧",
+        difficulty: "Medium",
+        time: "5-10 min",
+        path: "/training/spam-battle",
+        color: "from-red-500 to-orange-500",
+        features: ["Drag & drop", "Combo system", "Level progression"]
+    },
+    {
+        id: "url-defuse",
+        title: "URL Defuse",
+        description: "Bomb disposal for URLs - cut the malicious wires!",
+        icon: "💣",
+        difficulty: "Medium",
+        time: "10-15 min",
+        path: "/training/url-defuse",
+        color: "from-yellow-500 to-red-500",
+        features: ["Wire cutting mechanics", "Timer countdown", "URL analysis"]
     }
 ];
 
@@ -105,12 +127,11 @@ export default function TrainingHub() {
                 {/* Coming Soon */}
                 <div className="glass-card p-8 text-center bg-gradient-to-br from-blue-500/5 to-purple-500/5">
                     <h2 className="text-2xl font-bold mb-4">🚀 More Modules Coming Soon</h2>
-                    <div className="grid md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
                         {[
-                            { icon: "📧", name: "Spam Email Battle", status: "Phase 2" },
-                            { icon: "💣", name: "URL Defuse", status: "Phase 2" },
-                            { icon: "🦠", name: "Attachment Quarantine", status: "Phase 2" },
-                            { icon: "📱", name: "QR Code Scanner", status: "Phase 3" }
+                            { icon: "🦠", name: "Attachment Quarantine", status: "Phase 3" },
+                            { icon: "📱", name: "QR Code Scanner", status: "Phase 3" },
+                            { icon: "📞", name: "Vishing Detector", status: "Phase 3" }
                         ].map((module, i) => (
                             <div key={i} className="bg-surface p-4 rounded-lg opacity-60">
                                 <div className="text-3xl mb-2">{module.icon}</div>
@@ -124,15 +145,15 @@ export default function TrainingHub() {
                 {/* Stats Section */}
                 <div className="mt-12 grid md:grid-cols-3 gap-6">
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-primary mb-2">3</div>
+                        <div className="text-4xl font-bold text-primary mb-2">5</div>
                         <div className="text-sm text-secondary">Training Modules</div>
                     </div>
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-emerald-400 mb-2">20+</div>
+                        <div className="text-4xl font-bold text-emerald-400 mb-2">50+</div>
                         <div className="text-sm text-secondary">Interactive Scenarios</div>
                     </div>
                     <div className="stat-card text-center">
-                        <div className="text-4xl font-bold text-cyan-400 mb-2">30</div>
+                        <div className="text-4xl font-bold text-cyan-400 mb-2">45</div>
                         <div className="text-sm text-secondary">Min Total Training</div>
                     </div>
                 </div>
