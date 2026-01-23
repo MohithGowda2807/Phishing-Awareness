@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Crypto scam scenarios
-const CRYPTO_SC AMS = [
+const CRYPTO_SCAMS = [
     {
         id: 1,
         title: "Elon Musk Bitcoin Giveaway",
@@ -260,8 +260,8 @@ export default function CryptoScamDetector() {
                                     {key.replace(/([A-Z])/g, ' $1').trim()}
                                 </div>
                                 <div className={`font-mono text-sm ${typeof value === 'boolean'
-                                        ? value ? 'text-emerald-400' : 'text-red-400'
-                                        : 'text-base'
+                                    ? value ? 'text-emerald-400' : 'text-red-400'
+                                    : 'text-base'
                                     }`}>
                                     {typeof value === 'boolean' ? (value ? 'Yes ✓' : 'No ✗') : value}
                                 </div>
@@ -290,8 +290,8 @@ export default function CryptoScamDetector() {
                     {/* Feedback */}
                     {showFeedback && (
                         <div className={`animate-fadeIn p-6 rounded-lg ${userDecision.correct
-                                ? "bg-emerald-500/20 border border-emerald-500/50"
-                                : "bg-red-500/20 border border-red-500/50"
+                            ? "bg-emerald-500/20 border border-emerald-500/50"
+                            : "bg-red-500/20 border border-red-500/50"
                             }`}>
                             <div className="text-center mb-4">
                                 <div className="text-5xl mb-2">{userDecision.correct ? "✅" : "❌"}</div>
