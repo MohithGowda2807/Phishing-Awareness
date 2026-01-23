@@ -63,6 +63,26 @@ const ATTACK_TYPES = [
     { name: "Rainbow Table", icon: "🌈", speed: 100000000, description: "Pre-computed hash lookups" }
 ];
 
+// Generate password guesses
+const generateGuess = (attackType, iteration, targetPassword) => {
+    if (attackType.name === "Brute Force") {
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
+        const len = Math.min(iteration % 12 + 1, targetPassword?.length || 8);
+        return Array(len).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join("");
+    } else if (attackType.name === "Dictionary") {
+        const dictionary = [
+            "password", "123456", "qwerty", "letmein", "admin", "welcome",
+            "Password1", "pass123", "admin123", "welcome1", "qwerty123",
+            "monkey", "dragon", "master", "sunshine", "princess", "football",
+            "iloveyou", "trustno1", "abc123", "password1", "superman"
+        ];
+        return dictionary[iteration % dictionary.length] + (iteration > dictionary.length ? iteration : "");
+    } else {
+        const hashes = ["5f4dcc3b", "e10adc39", "25d55ad2", "827ccb0e", "d8578edf"];
+        return hashes[iteration % hashes.length] + Math.random().toString(36).substring(7);
+    }
+};
+
 export default function PasswordStrengthBattle() {
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
@@ -72,6 +92,9 @@ export default function PasswordStrengthBattle() {
     const [activeAttack, setActiveAttack] = useState(null);
     const [attackProgress, setAttackProgress] = useState(0);
     const [showMFA, setShowMFA] = useState(false);
+    const [guessedPasswords, setGuessedPasswords] = useState([]);
+    const [guessesPerSecond, setGuessesPerSecond] = useState(0);
+    const [totalGuesses, setTotalGuesses] = useState(0);
 
     useEffect(() => {
         if (password) {
@@ -85,22 +108,52 @@ export default function PasswordStrengthBattle() {
     }, [password]);
 
     useEffect(() => {
-        if (activeAttack) {
+        if (activeAttack && password) {
+            let guessCount = 0;
+            const startTime = Date.now();
+
             const interval = setInterval(() => {
-                setAttackProgress(prev => {
-                    if (prev >= 100) {
-                        setActiveAttack(null);
-                        return 0;
-                    }
-                    // Speed based on password strength
-                    const increment = strength.score < 30 ? 10 : strength.score < 60 ? 2 : 0.5;
-                    return Math.min(prev + increment, 100);
+                const guessSpeed = strength.score < 30 ? 50 : strength.score < 60 ? 200 : 500;
+
+                guessCount++;
+                setTotalGuesses(guessCount);
+
+                const elapsed = (Date.now() - startTime) / 1000;
+                setGuessesPerSecond(Math.round(guessCount / elapsed));
+
+                const guess = generateGuess(activeAttack, guessCount, password);
+
+                setGuessedPasswords(prev => {
+                    const newGuesses = [...prev, { guess, correct: guess === password, time: Date.now() }];
+                    return newGuesses.slice(-15);
                 });
-            }, 100);
+
+                if (guess === password) {
+                    setAttackProgress(100);
+                    clearInterval(interval);
+                    return;
+                }
+
+                setAttackProgress(prev => {
+                    const increment = strength.score < 30 ? 5 : strength.score < 60 ? 1 : 0.3;
+                    const newProgress = Math.min(prev + increment, 99);
+
+                    if (newProgress >= 99 && strength.score < 80) {
+                        setAttackProgress(100);
+                        clearInterval(interval);
+                    }
+
+                    return newProgress;
+                });
+            }, strength.score < 30 ? 100 : strength.score < 60 ? 300 : 600);
 
             return () => clearInterval(interval);
+        } else {
+            setGuessedPasswords([]);
+            setTotalGuesses(0);
+            setGuessesPerSecond(0);
         }
-    }, [activeAttack, strength.score]);
+    }, [activeAttack, strength.score, password]);
 
     const getStrengthColor = () => {
         if (strength.score >= 80) return "text-emerald-400";
@@ -255,36 +308,73 @@ export default function PasswordStrengthBattle() {
                             </div>
                         </div>
 
-                        {/* Attack Progress */}
+                        {/* Attack Progress with Live Feed */}
                         {activeAttack && (
                             <div className="mb-6">
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm text-secondary">Attack Progress</span>
                                     <span className="text-sm font-bold text-red-400">{Math.round(attackProgress)}%</span>
                                 </div>
-                                <div className="h-4 bg-surface rounded-full overflow-hidden">
+                                <div className="h-4 bg-surface rounded-full overflow-hidden mb-4">
                                     <div
                                         className="h-full bg-gradient-to-r from-red-500 to-orange-500 transition-all duration-100"
                                         style={{ width: `${attackProgress}%` }}
                                     ></div>
                                 </div>
 
+                                {/* Attack Stats */}
+                                <div className="grid grid-cols-2 gap-3 mb-4">
+                                    <div className="bg-surface p-3 rounded-lg">
+                                        <div className="text-xs text-secondary mb-1">Total Attempts</div>
+                                        <div className="text-lg font-bold text-red-400">{totalGuesses.toLocaleString()}</div>
+                                    </div>
+                                    <div className="bg-surface p-3 rounded-lg">
+                                        <div className="text-xs text-secondary mb-1">Speed</div>
+                                        <div className="text-lg font-bold text-orange-400">{guessesPerSecond.toLocaleString()}/sec</div>
+                                    </div>
+                                </div>
+
+                                {/* Live Attack Log */}
+                                <div className="bg-surface rounded-lg p-3 mb-4">
+                                    <div className="text-xs text-secondary mb-2 flex items-center gap-2">
+                                        <span className="animate-pulse text-red-500">🔴</span>
+                                        <span>Live Attack Feed</span>
+                                    </div>
+                                    <div className="h-40 overflow-y-auto font-mono text-xs space-y-1">
+                                        {guessedPasswords.slice().reverse().map((attempt, i) => (
+                                            <div
+                                                key={i}
+                                                className={`animate-fadeIn flex items-center gap-2 ${attempt.correct ? "text-red-400 font-bold" : "text-muted"
+                                                    }`}
+                                            >
+                                                <span>{attempt.correct ? "✓" : "✗"}</span>
+                                                <span className="flex-1 truncate">{attempt.guess}</span>
+                                            </div>
+                                        ))}
+                                        {guessedPasswords.length === 0 && (
+                                            <div className="text-muted text-center py-8">
+                                                Starting attack...
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
                                 {attackProgress >= 100 && (
-                                    <div className="mt-4 bg-red-500/20 border border-red-500/50 rounded-lg p-4 text-center">
+                                    <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 text-center animate-pulse">
                                         <div className="text-3xl mb-2">💥</div>
                                         <div className="font-bold text-red-400">Password Cracked!</div>
                                         <div className="text-sm text-secondary mt-1">
-                                            The attacker broke through your defenses
+                                            Found in {totalGuesses.toLocaleString()} attempts
                                         </div>
                                     </div>
                                 )}
 
                                 {attackProgress < 100 && strength.score >= 80 && (
-                                    <div className="mt-4 bg-emerald-500/20 border border-emerald-500/50 rounded-lg p-4 text-center">
+                                    <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-lg p-4 text-center">
                                         <div className="text-3xl mb-2">🛡️</div>
                                         <div className="font-bold text-emerald-400">Defense Holding!</div>
                                         <div className="text-sm text-secondary mt-1">
-                                            Your password is very strong
+                                            Your password is resisting the attack
                                         </div>
                                     </div>
                                 )}
@@ -292,7 +382,7 @@ export default function PasswordStrengthBattle() {
                         )}
 
                         {/* Suggestions */}
-                        {suggestions.length > 0 && (
+                        {suggestions.length > 0 && !activeAttack && (
                             <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-4">
                                 <div className="font-semibold mb-2">💡 How to Improve:</div>
                                 <ul className="space-y-1 text-sm">
