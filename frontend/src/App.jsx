@@ -24,6 +24,8 @@ import TrainingHub from "./pages/TrainingHub";
 import SMSPhishing from "./pages/SMSPhishing";
 import FakeWebsiteDetector from "./pages/FakeWebsiteDetector";
 import PasswordStrengthBattle from "./pages/PasswordStrengthBattle";
+import SpamEmailBattle from "./pages/SpamEmailBattle";
+import URLDefuse from "./pages/URLDefuse";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -62,6 +64,8 @@ export default function App() {
                 <Route path="/training/sms-phishing" element={<SMSPhishing />} />
                 <Route path="/training/fake-website" element={<FakeWebsiteDetector />} />
                 <Route path="/training/password-battle" element={<PasswordStrengthBattle />} />
+                <Route path="/training/spam-battle" element={<SpamEmailBattle />} />
+                <Route path="/training/url-defuse" element={<URLDefuse />} />
               </Route>
             </Route>
 
