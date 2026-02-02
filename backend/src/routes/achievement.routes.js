@@ -15,8 +15,11 @@ router.use(authenticate);
 // Get all achievements with user progress
 router.get("/", getAllAchievements);
 
-// Get user's unlocked achievements
-router.get("/user/:userId?", getUserAchievements);
+// Get user's unlocked achievements (current user)
+router.get("/user", getUserAchievements);
+
+// Get specific user's unlocked achievements
+router.get("/user/:userId", getUserAchievements);
 
 // Get recently unlocked (unviewed) achievements
 router.get("/recent", getRecentUnlocks);

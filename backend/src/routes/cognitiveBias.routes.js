@@ -12,8 +12,11 @@ router.get("/", cognitiveBiasController.getAllBiases);
 // Get user's progress
 router.get("/progress", cognitiveBiasController.getUserProgress);
 
-// Reset progress (all or specific bias)
-router.delete("/progress/:biasId?", cognitiveBiasController.resetProgress);
+// Reset all progress
+router.delete("/progress", cognitiveBiasController.resetProgress);
+
+// Reset specific bias progress
+router.delete("/progress/:biasId", cognitiveBiasController.resetProgress);
 
 // Get bias details
 router.get("/:biasId", cognitiveBiasController.getBiasDetails);

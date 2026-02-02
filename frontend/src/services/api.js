@@ -269,3 +269,152 @@ export const getDailyHistory = async () => {
   });
   return res.json();
 };
+
+// ==========================================
+// LOCALIZED THREAT TRAINING
+// ==========================================
+
+export const getLocalizedScenarios = async (options = {}) => {
+  const params = new URLSearchParams(options).toString();
+  const url = params ? `${API_BASE}/locale/scenarios?${params}` : `${API_BASE}/locale/scenarios`;
+  const res = await fetch(url, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getRandomScenario = async (options = {}) => {
+  const params = new URLSearchParams(options).toString();
+  const url = params ? `${API_BASE}/locale/scenarios/random?${params}` : `${API_BASE}/locale/scenarios/random`;
+  const res = await fetch(url, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const submitScenarioAnswer = async (scenarioId, answer, timeSpent) => {
+  const res = await fetch(`${API_BASE}/locale/scenarios/${scenarioId}/answer`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ answer, timeSpent }),
+  });
+  return res.json();
+};
+
+export const getLocaleCategories = async () => {
+  const res = await fetch(`${API_BASE}/locale/categories`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const updateUserLocale = async (locale) => {
+  const res = await fetch(`${API_BASE}/locale/preference`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ locale }),
+  });
+  return res.json();
+};
+
+export const getLocaleStats = async () => {
+  const res = await fetch(`${API_BASE}/locale/stats`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+// ==========================================
+// COGNITIVE BIAS TRAINING
+// ==========================================
+
+export const getAllBiases = async () => {
+  const res = await fetch(`${API_BASE}/cognitive-bias`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getBiasDetails = async (biasId) => {
+  const res = await fetch(`${API_BASE}/cognitive-bias/${biasId}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getBiasExercise = async (biasId, exerciseIndex) => {
+  const res = await fetch(`${API_BASE}/cognitive-bias/${biasId}/exercise/${exerciseIndex}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const submitBiasExerciseAnswer = async (biasId, exerciseIndex, selectedOption) => {
+  const res = await fetch(`${API_BASE}/cognitive-bias/${biasId}/exercise/${exerciseIndex}/answer`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ selectedOption }),
+  });
+  return res.json();
+};
+
+export const getBiasProgress = async () => {
+  const res = await fetch(`${API_BASE}/cognitive-bias/progress`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const resetBiasProgress = async (biasId = null) => {
+  const url = biasId
+    ? `${API_BASE}/cognitive-bias/progress/${biasId}`
+    : `${API_BASE}/cognitive-bias/progress`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+// ==========================================
+// CYBER DEFENSE SCORE
+// ==========================================
+
+export const generateCyberScore = async () => {
+  const res = await fetch(`${API_BASE}/score/generate`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getLatestCyberScore = async () => {
+  const res = await fetch(`${API_BASE}/score/latest`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const verifyCyberScore = async (token) => {
+  const res = await fetch(`${API_BASE}/score/verify/${token}`);
+  return res.json();
+};
+
+export const getCyberScoreHistory = async () => {
+  const res = await fetch(`${API_BASE}/score/history`, {
+    headers: getAuthHeaders(),
+  });
+  return res.json();
+};
+
+export const getCyberScoreLeaderboard = async (limit = 20) => {
+  const res = await fetch(`${API_BASE}/score/leaderboard?limit=${limit}`);
+  return res.json();
+};
+
+export const trackScoreView = async (token) => {
+  const res = await fetch(`${API_BASE}/score/view/${token}`, {
+    method: "POST",
+  });
+  return res.json();
+};

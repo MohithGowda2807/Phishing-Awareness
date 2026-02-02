@@ -31,6 +31,9 @@ import AttachmentQuarantine from "./pages/AttachmentQuarantine";
 import SocialEngineeringHotline from "./pages/SocialEngineeringHotline";
 import WiFiSafetyTrainer from "./pages/WiFiSafetyTrainer";
 import CryptoScamDetector from "./pages/CryptoScamDetector";
+import LocalizedTraining from "./pages/LocalizedTraining";
+import CognitiveBiasTraining from "./pages/CognitiveBiasTraining";
+import CyberDefenseScore from "./pages/CyberDefenseScore";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -76,6 +79,12 @@ export default function App() {
                 <Route path="/training/vishing-defense" element={<SocialEngineeringHotline />} />
                 <Route path="/training/wifi-safety" element={<WiFiSafetyTrainer />} />
                 <Route path="/training/crypto-scams" element={<CryptoScamDetector />} />
+                {/* New MVP Features */}
+                <Route path="/training/localized" element={<LocalizedTraining />} />
+                <Route path="/training/cognitive-bias" element={<CognitiveBiasTraining />} />
+                <Route path="/training/cognitive-bias/:biasId" element={<CognitiveBiasTraining />} />
+                <Route path="/cyber-score" element={<CyberDefenseScore />} />
+                <Route path="/score/:token" element={<CyberDefenseScore />} />
               </Route>
             </Route>
 

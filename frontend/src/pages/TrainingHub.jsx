@@ -114,6 +114,43 @@ const TRAINING_MODULES = [
         path: "/training/crypto-scams",
         color: "from-yellow-500 to-orange-500",
         features: ["6 detailed scenarios", "Red flag analysis", "DeFi safety"]
+    },
+    // NEW MVP Features
+    {
+        id: "localized",
+        title: "Localized Threat Training",
+        description: "Region-specific phishing scenarios tailored to your location",
+        icon: "🌍",
+        difficulty: "Medium",
+        time: "10-15 min",
+        path: "/training/localized",
+        color: "from-teal-500 to-green-500",
+        features: ["India/US/UK scenarios", "Cultural context", "Regional banking scams"],
+        isNew: true
+    },
+    {
+        id: "cognitive-bias",
+        title: "Cognitive Bias Training",
+        description: "Learn how attackers exploit psychological biases",
+        icon: "🧠",
+        difficulty: "Medium",
+        time: "20-30 min",
+        path: "/training/cognitive-bias",
+        color: "from-violet-500 to-purple-500",
+        features: ["6 bias modules", "Interactive exercises", "Defense strategies"],
+        isNew: true
+    },
+    {
+        id: "cyber-score",
+        title: "Cyber Defense Score",
+        description: "Get your shareable cybersecurity awareness rating",
+        icon: "🛡️",
+        difficulty: "Easy",
+        time: "5 min",
+        path: "/cyber-score",
+        color: "from-emerald-500 to-cyan-500",
+        features: ["Verified score", "LinkedIn sharing", "Leaderboards"],
+        isNew: true
     }
 ];
 
@@ -152,9 +189,16 @@ export default function TrainingHub() {
                     {TRAINING_MODULES.map(module => (
                         <div
                             key={module.id}
-                            className="glass-card p-6 hover:scale-105 transition-all cursor-pointer group"
+                            className="glass-card p-6 hover:scale-105 transition-all cursor-pointer group relative"
                             onClick={() => navigate(module.path)}
                         >
+                            {/* NEW Badge */}
+                            {module.isNew && (
+                                <div className="absolute -top-2 -right-2 px-2 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs font-bold rounded-full animate-pulse">
+                                    NEW
+                                </div>
+                            )}
+
                             {/* Icon Badge */}
                             <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${module.color} flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition-transform`}>
                                 {module.icon}
@@ -171,8 +215,8 @@ export default function TrainingHub() {
                             {/* Metadata */}
                             <div className="flex items-center gap-3 mb-4 text-xs">
                                 <span className={`px-2 py-1 rounded ${module.difficulty === "Easy" ? "bg-emerald-500/20 text-emerald-400" :
-                                        module.difficulty === "Medium" ? "bg-yellow-500/20 text-yellow-400" :
-                                            "bg-red-500/20 text-red-400"
+                                    module.difficulty === "Medium" ? "bg-yellow-500/20 text-yellow-400" :
+                                        "bg-red-500/20 text-red-400"
                                     }`}>
                                     {module.difficulty}
                                 </span>
