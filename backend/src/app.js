@@ -47,6 +47,16 @@ app.use("/api/achievements", achievementRoutes);
 const dailyRoutes = require("./routes/daily.routes");
 app.use("/api/daily", dailyRoutes);
 
+// New MVP Feature Routes
+const localeRoutes = require("./routes/locale.routes");
+app.use("/api/locale", localeRoutes);
+
+const cognitiveBiasRoutes = require("./routes/cognitiveBias.routes");
+app.use("/api/cognitive-bias", cognitiveBiasRoutes);
+
+const riskScoreRoutes = require("./routes/riskScore.routes");
+app.use("/api/score", riskScoreRoutes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -97,7 +97,38 @@ const userSchema = new mongoose.Schema(
       challengesPlayed: { type: Number, default: 0 },
       totalUpvotesReceived: { type: Number, default: 0 },
       reputationScore: { type: Number, default: 0 }
-    }
+    },
+
+    // Locale/Region preference for localized training
+    locale: {
+      type: String,
+      enum: ["IN", "US", "UK", "GLOBAL"],
+      default: "GLOBAL"
+    },
+
+    // Completed training modules tracking
+    completedModules: [{
+      moduleId: String,
+      moduleName: String,
+      completedAt: { type: Date, default: Date.now },
+      score: Number,
+      starsEarned: Number
+    }],
+
+    // Cognitive bias training progress
+    biasTrainingProgress: {
+      completedBiases: [String],
+      currentBiasId: String,
+      overallScore: { type: Number, default: 0 },
+      exercisesCompleted: { type: Number, default: 0 }
+    },
+
+    // Cyber score history
+    scoreHistory: [{
+      score: Number,
+      tier: String,
+      generatedAt: { type: Date, default: Date.now }
+    }]
   },
   { timestamps: true }
 );
