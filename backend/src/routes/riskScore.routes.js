@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const riskScoreController = require("../controllers/riskScore.controller");
-const auth = require("../middleware/auth");
+const { authenticate } = require("../middleware/authMiddleware");
 
 // Public verification endpoint (no auth required)
 router.get("/verify/:token", riskScoreController.verifyScore);
@@ -13,7 +13,7 @@ router.post("/view/:token", riskScoreController.trackScoreView);
 router.get("/leaderboard", riskScoreController.getScoreLeaderboard);
 
 // Protected routes
-router.use(auth);
+router.use(authenticate);
 
 // Generate new score
 router.post("/generate", riskScoreController.generateScore);

@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const cognitiveBiasController = require("../controllers/cognitiveBias.controller");
-const auth = require("../middleware/auth");
+const { authenticate } = require("../middleware/authMiddleware");
 
 // All routes require authentication
-router.use(auth);
+router.use(authenticate);
 
 // Get all cognitive biases
 router.get("/", cognitiveBiasController.getAllBiases);

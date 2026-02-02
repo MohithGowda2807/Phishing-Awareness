@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const localeController = require("../controllers/locale.controller");
-const auth = require("../middleware/auth");
+const { authenticate } = require("../middleware/authMiddleware");
 
 // All routes require authentication
-router.use(auth);
+router.use(authenticate);
 
 // Get localized scenarios
 router.get("/scenarios", localeController.getLocalizedScenarios);
